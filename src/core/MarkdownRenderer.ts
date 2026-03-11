@@ -233,6 +233,11 @@ export async function renderToWeChatHtml(app: App, content: string, sourceFile: 
                 if (node.tagName === 'LI') {
                     if (textFontSize) inlineStyles['font-size'] = textFontSize;
                     if (lineHeight) inlineStyles['line-height'] = lineHeight;
+                }
+
+                if (node.tagName === 'UL' || node.tagName === 'OL') {
+                    if (marginTop) inlineStyles['margin-top'] = marginTop;
+                    if (marginBottom) inlineStyles['margin-bottom'] = marginBottom;
                     if (paddingSide && paddingSide !== '0px') {
                         inlineStyles['padding-left'] = paddingSide;
                         inlineStyles['padding-right'] = paddingSide;
@@ -334,8 +339,10 @@ export async function renderToWeChatHtml(app: App, content: string, sourceFile: 
 
             // Ensure exact list item spacing
             if (node.tagName === 'LI') {
-                inlineStyles['margin'] = '0.5em 0';
-                inlineStyles['padding'] = '0';
+                inlineStyles['margin-top'] = '4px';
+                inlineStyles['margin-bottom'] = '4px';
+                // Remove display block/list-item inherited from Obsidian theme that breaks layouts
+                delete inlineStyles['display'];
             }
 
             // Handle images
@@ -382,7 +389,7 @@ export async function renderToWeChatHtml(app: App, content: string, sourceFile: 
     // WeChat's draft API mangles <ol>/<li> by inserting empty rows between items.
     // We replicate the visual look using CSS counter and divs instead.
     const convertListToDiv = (list: Element, isOrdered: boolean, startIndex: number): HTMLElement => {
-        const containerDiv = document.createElement('div');
+        const containerDiv = document.createElement('section');
         // Inherit font-size/color from the list element itself
         const listStyle = list.getAttribute('style') || '';
         containerDiv.setAttribute('style', listStyle);
@@ -390,23 +397,26 @@ export async function renderToWeChatHtml(app: App, content: string, sourceFile: 
         let counter = startIndex;
         Array.from(list.children).forEach(item => {
             if (item.tagName === 'LI') {
-                const rowDiv = document.createElement('div');
+                const rowDiv = document.createElement('section');
                 // Inherit the li's own style (font-size, color, line-height etc.)
-                const liStyle = item.getAttribute('style') || '';
-                rowDiv.setAttribute('style', `display: flex; align-items: baseline; margin: 0.3em 0; padding: 0; ${liStyle}`);
+                let liStyle = item.getAttribute('style') || '';
+                // Remove display styles to ensure WeChat doesn't discard styling
+                liStyle = liStyle.replace(/display:\s*[^;]+;?/gi, '');
+                
+                // Use standard block layout with text-indent for list items rather than flex,
+                // as flex causes WeChat to discard the style attribute completely.
+                const indentEms = isOrdered ? 2.0 : 1.5;
+                rowDiv.setAttribute('style', `${liStyle}; display: block; margin-top: 6px; margin-bottom: 6px; padding-left: ${indentEms}em; text-indent: -${indentEms}em;`);
 
                 const bulletSpan = document.createElement('span');
-                // Do NOT override font-weight — let it inherit naturally from liStyle
-                bulletSpan.setAttribute('style', 'display: inline-block; min-width: 1.8em; flex-shrink: 0;');
                 if (isOrdered) {
-                    bulletSpan.textContent = `${counter}.`;
+                    bulletSpan.textContent = `${counter}. `;
                     counter++;
                 } else {
-                    bulletSpan.textContent = '•';
+                    bulletSpan.textContent = '• ';
                 }
 
                 const contentSpan = document.createElement('span');
-                contentSpan.setAttribute('style', 'flex: 1;');
                 contentSpan.innerHTML = item.innerHTML;
 
                 rowDiv.appendChild(bulletSpan);
