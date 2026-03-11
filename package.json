@@ -1,0 +1,23 @@
+{
+  "name": "obsidian-wechat-publisher",
+  "version": "1.0.0",
+  "description": "Obsidian plugin for formatting and publishing articles to WeChat Official Account",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "node esbuild.config.mjs production"
+  },
+  "keywords": [
+    "obsidian",
+    "wechat",
+    "publisher"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "builtin-modules": "^3.3.0",
+    "esbuild": "^0.19.0",
+    "obsidian": "latest",
+    "typescript": "^5.3.0"
+  }
+}
