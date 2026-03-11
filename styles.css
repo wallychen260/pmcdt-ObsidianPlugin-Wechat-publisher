@@ -1,0 +1,221 @@
+/* =============================================
+   WeChat Publisher Plugin — UI Styles
+   ============================================= */
+
+/* --- Preview Panel Root --- */
+.wx-preview-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f0f0f0;
+}
+
+/* --- Toolbar --- */
+.wx-preview-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--background-secondary);
+  border-bottom: 1px solid var(--background-modifier-border);
+  flex-wrap: wrap;
+}
+
+.wx-preview-select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+
+.wx-preview-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.wx-preview-select {
+  flex: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-size: 12px;
+  min-width: 80px;
+}
+
+
+/* --- Phone Frame --- */
+.wx-preview-phone-frame {
+  flex: 1;
+  margin: 12px auto;
+  width: 375px;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+}
+
+.wx-preview-phone-header {
+  padding: 10px 16px;
+  background: #ededed;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.wx-preview-phone-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.wx-preview-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  background: #fff;
+}
+
+.wx-preview-content img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* --- Settings --- */
+.wx-publish-history {
+  margin-bottom: 16px;
+}
+
+.wx-history-item {
+  padding: 6px 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+/* --- Editor Top Toolbar --- */
+.wechat-publisher-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: transparent;
+  border-bottom: 1px solid var(--background-modifier-border);
+  flex-wrap: wrap;
+  z-index: 10;
+  position: sticky;
+  top: 0;
+  margin-bottom: 8px;
+}
+
+.wx-toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wx-toolbar-spacer {
+  flex: 1;
+}
+
+.wx-toolbar-btn {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 15px;
+  /* Slightly larger for text icons */
+  color: var(--icon-color, var(--text-normal));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  min-width: 28px;
+  transition: background-color 0.1s ease;
+}
+
+.wx-toolbar-btn:hover {
+  background: var(--background-modifier-hover) !important;
+}
+
+.wx-toolbar-divider {
+  display: none;
+}
+
+.wx-toolbar-btn-highlight {
+  color: var(--text-accent);
+}
+
+.wx-toolbar-dropdown-btn {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 50px;
+  justify-content: space-between;
+  padding: 4px 6px;
+}
+
+.wx-toolbar-dropdown-btn:hover {
+  background: var(--background-modifier-hover) !important;
+}
+
+.wx-toolbar-dropdown-arrow {
+  font-size: 10px;
+  color: var(--text-muted);
+  transform: translateY(1px);
+}
+
+.wx-toolbar-select {
+  padding: 2px 20px 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-size: 13px;
+  height: 28px;
+}
+
+.wx-color-picker-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.wx-color-picker-wrapper:hover {
+  background: var(--background-modifier-hover);
+}
+
+.wx-color-picker-text {
+  font-size: 15px;
+  font-family: var(--font-text), sans-serif;
+  font-weight: 600;
+  border-bottom: 3px solid #ff9800;
+  padding-bottom: 1px;
+  line-height: 1;
+  pointer-events: none;
+  display: inline-block;
+}
+
+.wx-toolbar-color {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
